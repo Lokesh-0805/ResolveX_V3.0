@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 120 20% 98%;
+    --foreground: 150 30% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 150 30% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 150 30% 15%;
+
+    --primary: 150 60% 35%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 195 75% 45%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 120 15% 95%;
+    --muted-foreground: 150 20% 40%;
+
+    --accent: 35 95% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 120 20% 88%;
+    --input: 120 20% 88%;
+    --ring: 150 60% 35%;
+
+    --radius: 0.75rem;
+
+    --success: 145 65% 45%;
+    --warning: 40 95% 55%;
+    --info: 195 75% 45%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(150 60% 35%) 0%, hsl(170 55% 40%) 50%, hsl(195 75% 45%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(120 20% 98%) 100%);
+    --gradient-action: linear-gradient(135deg, hsl(35 95% 55%) 0%, hsl(25 90% 50%) 100%);
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(150 30% 15% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(150 30% 15% / 0.1), 0 2px 4px -1px hsl(150 30% 15% / 0.06);
+    --shadow-lg: 0 10px 15px -3px hsl(150 30% 15% / 0.1), 0 4px 6px -2px hsl(150 30% 15% / 0.05);
+    --shadow-elevated: 0 20px 25px -5px hsl(150 30% 15% / 0.1), 0 10px 10px -5px hsl(150 30% 15% / 0.04);
+
+    /* Transitions */
+    --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 150 25% 8%;
+    --foreground: 120 15% 95%;
+
+    --card: 150 20% 12%;
+    --card-foreground: 120 15% 95%;
+
+    --popover: 150 20% 12%;
+    --popover-foreground: 120 15% 95%;
+
+    --primary: 150 55% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 195 70% 50%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 150 15% 20%;
+    --muted-foreground: 120 15% 65%;
+
+    --accent: 35 90% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 80% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 150 15% 20%;
+    --input: 150 15% 20%;
+    --ring: 150 55% 50%;
+
+    --success: 145 60% 50%;
+    --warning: 40 90% 60%;
+    --info: 195 70% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+}
+
+@layer utilities {
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .gradient-card {
+    background: var(--gradient-card);
+  }
+
+  .gradient-action {
+    background: var(--gradient-action);
+  }
+
+  .shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .transition-base {
+    transition: var(--transition-base);
+  }
+
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  /* Accessibility - Dyslexia Font */
+  .dyslexia-font * {
+    font-family: 'Atkinson Hyperlegible', sans-serif !important;
+  }
+
+  /* Accessibility - Text Sizes */
+  .text-small {
+    font-size: 87.5%;
+  }
+
+  .text-large {
+    font-size: 112.5%;
+  }
+}
