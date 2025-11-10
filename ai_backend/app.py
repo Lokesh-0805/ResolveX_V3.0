@@ -35,7 +35,7 @@ def serve_static(path):
 @app.route("/chat", methods=["POST"])
 def chat():
     try:
-        user_msg = request.json.get("message", "")
+        user_msg = request.json.get("message", "").strip()
         if not user_msg:
             return jsonify({"reply": "⚠️ Please enter a valid query."})
 
@@ -46,22 +46,43 @@ def chat():
                     "role": "system",
                     "content": (
                         "You are Civic AI Assistant for a civic issue reporting portal. "
-                        "Your role is to guide users on civic issues, how to report them, "
-                        "and how to use the platform. Be concise, friendly, and informative."
-                    )
+                        "Report Waste Issues - Users can click on report waste issues and then open their camera, capture a waste image, and automatically "
+                        "attach their live location to report the issue directly to local authorities. "
+                        "The AI system analyzes the image to confirm it's waste-related before submission.\n"
+                        "Test Water Quality – Users click on water testing and then their testing location is automatically fetched, select a water source type, "
+                        "and input key water parameters including:\n"
+                        "- pH Level (0–14)\n"
+                        "- Turbidity (NTU)\n"
+                        "- TDS(mg/L)\n"
+                        "- Conductivity \n"
+                        "- Hardness \n"
+                        "- Coliform Presence\n"
+                        "The AI analyzes these inputs to determine the overall water quality and provide suggestions "
+                        "on whether the water is safe or needs treatment.\n\n"
+                        "Check Air Quality Index (AQI) – Users can view real-time AQI levels for their current location which is shown in real time at all time in the top header . If any ask tell them this specific in short .\n\n"
+                        "Your responsibilities:\n"
+                        "- Greet users warmly and guide them through the platform.\n"
+                        "- If someone is new or asks 'how to use', explain all main features simply.\n"
+                        "- If they ask about reporting waste, explain the camera upload + live location process.\n"
+                        "- If they ask about water testing, explain how to upload and analyze water.\n"
+                        "- If they ask about AQI, explain what it means and where to find it.\n"
+                        "- Stay civic-focused, positive, and helpful — encourage users to make a difference.\n\n"
+                        "Always end responses with an encouraging line such as: "
+                        "'🌱 Together, we can make our city cleaner and healthier!'"
+                        "Tell in precise and do not use '**' and ':' and emoji in code . "
+                        "Make the chat professional and tell in steps where needed ."
+                    ),
                 },
                 {"role": "user", "content": user_msg},
             ],
         )
 
-        reply = response.choices[0].message["content"]
+        reply = response.choices[0].message["content"].strip()
         return jsonify({"reply": reply})
 
     except Exception as e:
         print(f"💥 Chatbot Error: {e}")
         return jsonify({"reply": "❌ Server error, please try again later."}), 500
-
-
 
 # ------------------------------------------------------------
 # Log Water Testing
