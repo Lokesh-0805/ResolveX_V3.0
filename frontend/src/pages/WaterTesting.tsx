@@ -610,11 +610,57 @@ const handleSubmit = async (e: React.FormEvent) => {
           <DialogFooter className="sm:justify-start gap-2 mt-4">
             {/* Conditional "Notify" button for poor quality */}
             {predictionResult?.status === "Poor" && (
-              <Button type="button" variant="destructive">
-                <AlertTriangle className="mr-2 h-4 w-4" />
-                Notify Authorities
-              </Button>
-            )}
+  <Button
+    type="button"
+    variant="destructive"
+    onClick={async () => {
+      try {
+        const payload = {
+          testingLocation: location,
+          waterSourceType: source,
+          phLevel: ph,
+          tds,
+          turbidity,
+          conductivity,
+          hardness,
+          coliformPresence: coliform,
+          status: predictionResult.status,
+          recommendations: predictionResult.recommendations,
+        };
+
+        const res = await fetch(`${import.meta.env.VITE_NODE_API_BASE}/api/water/notify`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (res.ok) {
+          toast({
+            title: "Report Sent",
+            description:
+              "Your report has been sent to the authorities. You can now track your report.",
+          });
+        } else {
+          toast({
+            title: "Failed to Notify",
+            description: "There was an issue sending the report.",
+            variant: "destructive",
+          });
+        }
+      } catch (error) {
+        toast({
+          title: "Error",
+          description: "Unable to contact server.",
+          variant: "destructive",
+        });
+      }
+    }}
+  >
+    <AlertTriangle className="mr-2 h-4 w-4" />
+    Notify Authorities
+  </Button>
+)}
+
             <Button type="button" variant="secondary">
               Share Report
             </Button>
